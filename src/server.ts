@@ -6,6 +6,7 @@ import schema from './schema';
 import { ApolloServer } from 'apollo-server-express';
 import { createServer } from 'http';
 import expressPlayGround from 'graphql-playground-middleware-express';
+import { dataSources } from './data';
 
 async function init() {
     // Inicializamos la aplicación express
@@ -19,7 +20,10 @@ async function init() {
     // Inicializamos el servidor de Apollo
     const server = new ApolloServer({
         schema,
-        introspection: true // Necesario
+        introspection: true, // Necesario
+        dataSources: () => ({
+            countries: new dataSources.CountriesData()
+        })
     });
 
     //server.applyMiddleware({ app });
@@ -28,7 +32,7 @@ async function init() {
         endpoint: '/graphql'
     }));
 
-    const PORT = process.env.PORT || 5000;
+    const PORT = process.env.PORT || 5100;
 
     const httpServer = createServer(app);
 

@@ -2,8 +2,11 @@ import { IResolvers } from 'graphql-tools';
 
 const query: IResolvers = {
     Query: {
-        hello(): string {
-            return 'Hello World';
+        async countriesList(_: void, __: any, { dataSources }) {
+            return await dataSources.seasons.getCountries().then(
+                (data: any) => console.log(data)
+                //(data: any) => data.MRData.SeasonTable.Seasons
+            );
         }
     }
 };
