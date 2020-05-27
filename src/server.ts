@@ -26,7 +26,7 @@ async function init() {
         })
     });
 
-    //server.applyMiddleware({ app });
+    server.applyMiddleware({ app });
 
     app.use('/', expressPlayGround({
         endpoint: '/graphql'
